@@ -95,9 +95,11 @@ resource "aws_s3_bucket" "vulnerable_bucket" {
   bucket = "company-legacy-data-${local.aws_account_id}"
 }
 
-resource "aws_s3_bucket_acl" "vulnerable_bucket_acl" {
+resource "aws_s3_bucket_ownership_controls" "vulnerable_bucket_ownership" {
   bucket = aws_s3_bucket.vulnerable_bucket.id
-  acl    = "private"
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
 }
 
 resource "aws_s3_bucket_policy" "vulnerable_bucket_policy" {
