@@ -22,6 +22,11 @@ jobs:
         with:
           role-to-assume: arn:aws:iam::425861498673:role/GitHubActionsAdminRole # <-- REPLACE THIS
           aws-region: eu-central-1
+           # --- ADD THIS NEW STEP HERE ---
+      - name: Verify AWS Identity
+        run: |
+          echo "Verifying the AWS Account ID that the runner is authenticated with..."
+          aws sts get-caller-identity
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
